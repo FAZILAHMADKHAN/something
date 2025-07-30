@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arhaan's Awesome World 🌟</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 10s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-20px) translateY(-20px); }
+            66% { transform: translateX(20px) translateY(20px); }
+        }
+
+        /* Floating math symbols */
+        .floating-symbol {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+            pointer-events: none;
+        }
+
+        .floating-symbol:nth-child(1) { top: 10%; left: -50px; animation-delay: 0s; }
+        .floating-symbol:nth-child(2) { top: 30%; left: -50px; animation-delay: -3s; }
+        .floating-symbol:nth-child(3) { top: 50%; left: -50px; animation-delay: -6s; }
+        .floating-symbol:nth-child(4) { top: 70%; left: -50px; animation-delay: -9s; }
+
+        @keyframes float {
+            from { transform: translateX(0) rotate(0deg); }
+            to { transform: translateX(calc(100vw + 100px)) rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #ff6ec7, #7b68ee, #00bcd4) 1;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff6ec7, #7b68ee, #00bcd4);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite, bounce 2s infinite;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(255, 110, 199, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #00bcd4, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ff6ec7, #7b68ee);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 110, 199, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 110, 199, 0.5);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #00bcd4, #7b68ee);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff6ec7, #7b68ee, #00bcd4) 1;
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid;
+            border-image: linear-gradient(45deg, #ff6ec7, #00bcd4) 1;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, #ff6ec7, #7b68ee);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: profileGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes profileGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 110, 199, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(0, 188, 212, 0.7); }
+        }
+
+        .hero h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff6ec7, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff6ec7, #7b68ee) 1;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6ec7, #7b68ee, #00bcd4);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 110, 199, 0.3);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 110, 199, 0.5));
+        }
+
+        .card h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #00bcd4, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Math Game Area */
+        .game-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff6ec7, #00bcd4) 1;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-btn {
+            background: linear-gradient(45deg, #ff6ec7, #7b68ee);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 110, 199, 0.3);
+        }
+
+        .game-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 110, 199, 0.5);
+        }
+
+        /* Cricket Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00bcd4, #7b68ee) 1;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6ec7, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #e0e0e0;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff6ec7, #00bcd4) 1;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            background: linear-gradient(45deg, #ff6ec7, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #333;
+            border-radius: 15px;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6ec7;
+            box-shadow: 0 0 15px rgba(255, 110, 199, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #00bcd4, #7b68ee);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 3rem;
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #ff6ec7, #7b68ee, #00bcd4) 1;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .footer .hearts {
+            background: linear-gradient(45deg, #ff6ec7, #ff4757);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .creator-name {
+            background: linear-gradient(45deg, #00bcd4, #7b68ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+            }
+            
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Math Symbols -->
+    <div class="floating-symbol">➕</div>
+    <div class="floating-symbol">🏏</div>
+    <div class="floating-symbol">✖️</div>
+    <div class="floating-symbol">🎯</div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1 class="title">🌟 Arhaan's Awesome World 🌟</h1>
+        <p class="subtitle">Math Genius & Cricket Champion - Class 3 Superstar!</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+        <button class="nav-btn" onclick="showPage('math')">🔢 Math Zone</button>
+        <button class="nav-btn" onclick="showPage('cricket')">🏏 Cricket</button>
+        <button class="nav-btn" onclick="showPage('gallery')">📸 Gallery</button>
+        <button class="nav-btn" onclick="showPage('contact')">💌 Contact</button>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <div class="profile-pic">
+    <img src= "F:\website\my-awesome-site\arhaan.jpg" alt="Arhaan Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+</div>
+
+                <h2>Meet Arhaan Ahmed!</h2>
+                <p>Welcome to my awesome world! I'm Arhaan, a Class 3 student who loves solving math problems and playing cricket. Join me on my exciting journey of learning and fun!</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🧮</span>
+                    <h3>Math Master</h3>
+                    <p>I love numbers, addition, subtraction, and multiplication! Math makes my brain super strong!</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🏏</span>
+                    <h3>Cricket Champion</h3>
+                    <p>Batting, bowling, fielding - I love everything about cricket! It's my favorite sport!</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📚</span>
+                    <h3>Class 3 Student</h3>
+                    <p>Learning new things every day at school. My teachers say I'm very smart and curious!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Math Zone -->
+        <div id="math" class="page">
+            <div class="game-container">
+                <h2 style="font-family: 'Fredoka One', cursive; background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem;">🔢 Arhaan's Math Zone 🔢</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e0e0e0;">Practice math with me! Let's solve problems together!</p>
+                
+                <button class="game-btn" onclick="playAddition()">➕ Addition Fun</button>
+                <button class="game-btn" onclick="playSubtraction()">➖ Subtraction Challenge</button>
+                <button class="game-btn" onclick="playMultiplication()">✖️ Multiplication Magic</button>
+                <button class="game-btn" onclick="playTables()">📊 Times Tables</button>
+                
+                <div id="math-game-area" style="margin-top: 2rem; padding: 2rem; background: rgba(0,0,0,0.8); border-radius: 15px; min-height: 200px; border: 2px solid; border-image: linear-gradient(45deg, #ff6ec7, #00bcd4) 1;">
+                    <p style="font-size: 1.1rem; color: #e0e0e0;">Choose a math game above to start practicing! 🎉</p>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="math-score">0</div>
+                    <div class="stat-label">Math Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="problems-solved">0</div>
+                    <div class="stat-label">Problems Solved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="streak">0</div>
+                    <div class="stat-label">Correct Streak</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cricket Page -->
+        <div id="cricket" class="page">
+            <div class="hero">
+                <h2 style="font-family: 'Fredoka One', cursive; background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🏏 Arhaan's Cricket World 🏏</h2>
+                <p style="margin-bottom: 2rem; color: #e0e0e0;">Cricket is my passion! Here's everything about my cricket journey.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🏏</span>
+                    <h3>Favorite Position</h3>
+                    <p>I love batting! Hitting boundaries and scoring runs makes me so happy!</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎯</span>
+                    <h3>Best Shot</h3>
+                    <p>My straight drive is amazing! Coach says I have perfect technique!</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🏆</span>
+                    <h3>Dream</h3>
+                    <p>I want to play for India one day and win the World Cup!</p>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Highest Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Matches Played</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Wickets Taken</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Catches</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Page -->
+        <div id="gallery" class="page">
+            <div class="hero">
+                <h2 style="font-family: 'Fredoka One', cursive; background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">📸 Arhaan's Photo Gallery 📸</h2>
+                <p style="margin-bottom: 2rem; color: #e0e0e0;">My favorite moments captured in pictures!</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div style="width: 200px; height: 200px; margin: 0 auto 1rem; background: linear-gradient(45deg, #ff6ec7, #7b68ee); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">📚</div>
+                    <h3>School Days</h3>
+                    <p>Me with my classmates and teachers at school!</p>
+                </div>
+                <div class="card">
+                    <div style="width: 200px; height: 200px; margin: 0 auto 1rem; background: linear-gradient(45deg, #00bcd4, #7b68ee); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">🏏</div>
+                    <h3>Cricket Training</h3>
+                    <p>Action shots from my cricket practice sessions!</p>
+                </div>
+                <div class="card">
+                    <div style="width: 200px; height: 200px; margin: 0 auto 1rem; background: linear-gradient(45deg, #7b68ee, #ff6ec7); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">🏆</div>
+                    <h3>Awards & Achievements</h3>
+                    <p>My certificates and trophies from school and sports!</p>
+                </div>
+                <div class="card">
+                    <div style="width: 200px; height: 200px; margin: 0 auto 1rem; background: linear-gradient(45deg, #ff6ec7, #00bcd4); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 4rem;">👨‍👩‍👦</div>
+                    <h3>Family Fun</h3>
+                    <p>Happy moments with my family and friends!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <div class="contact-form">
+                <h2 style="font-family: 'Fredoka One', cursive; background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 2rem;">💌 Send a Message to Arhaan 💌</h2>
+                
+                <form onsubmit="sendMessage(event)">
+                    <div class="form-group">
+                        <label for="name">👋 What's your name?</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name here...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">🎂 How old are you?</label>
+                        <input type="number" id="age" name="age" min="1" max="18" placeholder="Your age...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">📝 What would you like to talk about?</label>
+                        <select id="subject" name="subject" style="width: 100%; padding: 1rem; border: 2px solid #333; border-radius: 15px; background: rgba(0,0,0,0.7); color: white; font-size: 1rem;">
+                            <option value="math">Math Problems 🔢</option>
+                            <option value="cricket">Cricket 🏏</option>
+                            <option value="school">School Life 📚</option>
+                            <option value="games">Fun Games 🎮</option>
+                            <option value="other">Something Else 😊</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">💭 Your message to Arhaan:</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell Arhaan about your day or ask him something..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Awesome Message ✨</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with <span class="hearts">💖</span> for Arhaan Ahmed</p>
+        <p>Created by <span class="creator-name">Fazil Ahmad Khan</span></p>
+        <p>🌟 Keep learning, keep playing, keep shining! 🌟</p>
+    </footer>
+
+    <script>
+        // Global variables
+        let mathScore = 0;
+        let problemsSolved = 0;
+        let currentStreak = 0;
+        let currentProblem = {};
+
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            event.target.classList.add('active');
+        }
+
+        // Update stats display
+        function updateStats() {
+            document.getElementById('math-score').textContent = mathScore;
+            document.getElementById('problems-solved').textContent = problemsSolved;
+            document.getElementById('streak').textContent = currentStreak;
+        }
+
+        // Math Games
+        function playAddition() {
+            const gameArea = document.getElementById('math-game-area');
+            const num1 = Math.floor(Math.random() * 50) + 1;
+            const num2 = Math.floor(Math.random() * 50) + 1;
+            const answer = num1 + num2;
+            
+            currentProblem = { num1, num2, answer, operation: '+' };
+            
+            gameArea.innerHTML = `
+                <h3 style="background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; font-size: 2rem;">➕ Addition Challenge ➕</h3>
+                <div style="font-size: 3rem; margin: 2rem 0; color: #e0e0e0; text-shadow: 0 0 20px rgba(255, 110, 199, 0.5);">
+                    ${num1} + ${num2} = ?
+                </div>
+                <input type="number" id="math-answer" placeholder="Your answer..." 
+                       style="padding: 1rem; font-size: 1.5rem; border: 2px solid #333; border-radius: 15px; background: rgba(0,0,0,0.7); color: white; margin-right: 1rem; text-align: center;">
+                <button onclick="checkMathAnswer()" class="game-btn">Check Answer ✨</button>
+                <div style="margin-top: 1rem;">
+                    <p style="color: #00bcd4; font-size: 1.2rem;">Score: ${mathScore} 🏆 | Streak: ${currentStreak} 🔥</p>
+                </div>
+            `;
+            
+            // Focus on input and allow Enter key
+            setTimeout(() => {
+                const input = document.getElementById('math-answer');
+                input.focus();
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkMathAnswer();
+                    }
+                });
+            }, 100);
+        }
+
+        function playSubtraction() {
+            const gameArea = document.getElementById('math-game-area');
+            let num1 = Math.floor(Math.random() * 50) + 20;
+            let num2 = Math.floor(Math.random() * num1);
+            const answer = num1 - num2;
+            
+            currentProblem = { num1, num2, answer, operation: '-' };
+            
+            gameArea.innerHTML = `
+                <h3 style="background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; font-size: 2rem;">➖ Subtraction Challenge ➖</h3>
+                <div style="font-size: 3rem; margin: 2rem 0; color: #e0e0e0; text-shadow: 0 0 20px rgba(0, 188, 212, 0.5);">
+                    ${num1} - ${num2} = ?
+                </div>
+                <input type="number" id="math-answer" placeholder="Your answer..." 
+                       style="padding: 1rem; font-size: 1.5rem; border: 2px solid #333; border-radius: 15px; background: rgba(0,0,0,0.7); color: white; margin-right: 1rem; text-align: center;">
+                <button onclick="checkMathAnswer()" class="game-btn">Check Answer ✨</button>
+                <div style="margin-top: 1rem;">
+                    <p style="color: #00bcd4; font-size: 1.2rem;">Score: ${mathScore} 🏆 | Streak: ${currentStreak} 🔥</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const input = document.getElementById('math-answer');
+                input.focus();
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkMathAnswer();
+                    }
+                });
+            }, 100);
+        }
+
+        function playMultiplication() {
+            const gameArea = document.getElementById('math-game-area');
+            const num1 = Math.floor(Math.random() * 12) + 1;
+            const num2 = Math.floor(Math.random() * 12) + 1;
+            const answer = num1 * num2;
+            
+            currentProblem = { num1, num2, answer, operation: '×' };
+            
+            gameArea.innerHTML = `
+                <h3 style="background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; font-size: 2rem;">✖️ Multiplication Magic ✖️</h3>
+                <div style="font-size: 3rem; margin: 2rem 0; color: #e0e0e0; text-shadow: 0 0 20px rgba(123, 104, 238, 0.5);">
+                    ${num1} × ${num2} = ?
+                </div>
+                <input type="number" id="math-answer" placeholder="Your answer..." 
+                       style="padding: 1rem; font-size: 1.5rem; border: 2px solid #333; border-radius: 15px; background: rgba(0,0,0,0.7); color: white; margin-right: 1rem; text-align: center;">
+                <button onclick="checkMathAnswer()" class="game-btn">Check Answer ✨</button>
+                <div style="margin-top: 1rem;">
+                    <p style="color: #00bcd4; font-size: 1.2rem;">Score: ${mathScore} 🏆 | Streak: ${currentStreak} 🔥</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const input = document.getElementById('math-answer');
+                input.focus();
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkMathAnswer();
+                    }
+                });
+            }, 100);
+        }
+
+        function playTables() {
+            const gameArea = document.getElementById('math-game-area');
+            const table = Math.floor(Math.random() * 10) + 2;
+            const multiplier = Math.floor(Math.random() * 10) + 1;
+            const answer = table * multiplier;
+            
+            currentProblem = { num1: table, num2: multiplier, answer, operation: '×' };
+            
+            gameArea.innerHTML = `
+                <h3 style="background: linear-gradient(45deg, #ff6ec7, #00bcd4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; font-size: 2rem;">📊 Times Tables Challenge 📊</h3>
+                <div style="font-size: 2rem; margin: 1rem 0; color: #ff6ec7;">Table of ${table}</div>
+                <div style="font-size: 3rem; margin: 2rem 0; color: #e0e0e0; text-shadow: 0 0 20px rgba(255, 110, 199, 0.5);">
+                    ${table} × ${multiplier} = ?
+                </div>
+                <input type="number" id="math-answer" placeholder="Your answer..." 
+                       style="padding: 1rem; font-size: 1.5rem; border: 2px solid #333; border-radius: 15px; background: rgba(0,0,0,0.7); color: white; margin-right: 1rem; text-align: center;">
+                <button onclick="checkMathAnswer()" class="game-btn">Check Answer ✨</button>
+                <div style="margin-top: 1rem;">
+                    <p style="color: #00bcd4; font-size: 1.2rem;">Score: ${mathScore} 🏆 | Streak: ${currentStreak} 🔥</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const input = document.getElementById('math-answer');
+                input.focus();
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkMathAnswer();
+                    }
+                });
+            }, 100);
+        }
+
+        function checkMathAnswer() {
+            const input = document.getElementById('math-answer');
+            const userAnswer = parseInt(input.value);
+            const gameArea = document.getElementById('math-game-area');
+            
+            if (userAnswer === currentProblem.answer) {
+                mathScore += 10;
+                problemsSolved++;
+                currentStreak++;
+                
+                // Bonus points for streak
+                if (currentStreak >= 5) {
+                    mathScore += 5;
+                }
+                
+                gameArea.innerHTML += `
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(0, 188, 212, 0.2); border-radius: 15px; border: 2px solid #00bcd4;">
+                        <p style="color: #00bcd4; font-size: 1.8rem; margin-bottom: 0.5rem;">🎉 Excellent! Perfect answer! 🎉</p>
+                        <p style="color: #e0e0e0; font-size: 1.2rem;">${currentProblem.num1} ${currentProblem.operation} ${currentProblem.num2} = ${currentProblem.answer}</p>
+                        <p style="color: #ff6ec7; font-size: 1.1rem;">+10 points! ${currentStreak >= 5 ? '+5 streak bonus!' : ''}</p>
+                    </div>
+                `;
+                
+                // Continue with next problem
+                setTimeout(() => {
+                    if (currentProblem.operation === '+') playAddition();
+                    else if (currentProblem.operation === '-') playSubtraction();
+                    else playMultiplication();
+                }, 2000);
+                
+            } else {
+                currentStreak = 0;
+                gameArea.innerHTML += `
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(255, 107, 107, 0.2); border-radius: 15px; border: 2px solid #ff6b6b;">
+                        <p style="color: #ff6b6b; font-size: 1.5rem; margin-bottom: 0.5rem;">🤔 Not quite right!</p>
+                        <p style="color: #e0e0e0; font-size: 1.2rem;">The correct answer is: ${currentProblem.answer}</p>
+                        <p style="color: #00bcd4; font-size: 1.1rem;">Keep trying, Arhaan! You're doing great! 💪</p>
+                    </div>
+                `;
+            }
+            
+            updateStats();
+        }
+
+        // Contact Form
+        function sendMessage(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Show success message
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Message Sent! ✨';
+            submitBtn.style.background = 'linear-gradient(45deg, #00bcd4, #7b68ee)';
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = 'linear-gradient(45deg, #00bcd4, #7b68ee)';
+                form.reset();
+                
+                // Show thank you message
+                const gameArea = document.querySelector('.contact-form');
+                gameArea.innerHTML += `
+                    <div style="margin-top: 2rem; padding: 2rem; background: rgba(0, 188, 212, 0.2); border-radius: 15px; border: 2px solid #00bcd4; text-align: center;">
+                        <h3 style="color: #00bcd4; font-size: 1.5rem; margin-bottom: 1rem;">Thank you for your message! 🌟</h3>
+                        <p style="color: #e0e0e0; font-size: 1.1rem;">Arhaan will be so happy to hear from you!</p>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // Initialize stats on page load
+        updateStats();
+
+        // Fun interaction - click on profile pic
+        document.addEventListener('DOMContentLoaded', function() {
+            const profilePic = document.querySelector('.profile-pic');
+            profilePic.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'profileGlow 2s ease-in-out infinite, bounce 1s ease-in-out';
+                }, 10);
+                
+                // Show a fun message
+                const hero = document.querySelector('.hero p');
+                const originalText = hero.textContent;
+                hero.textContent = "Hi there! Thanks for clicking on me! I'm super excited to share my world with you! 😊";
+                hero.style.color = '#ff6ec7';
+                
+                setTimeout(() => {
+                    hero.textContent = originalText;
+                    hero.style.color = '#e0e0e0';
+                }, 3000);
+            });
+        });
+
+        // Add some fun interactions
+        function addCelebration() {
+            // Create floating emojis when achieving high scores
+            if (mathScore > 0 && mathScore % 100 === 0) {
+                createFloatingEmojis(['🎉', '🌟', '🏆', '✨'], 5);
+            }
+        }
+
+        function createFloatingEmojis(emojis, count) {
+            for (let i = 0; i < count; i++) {
+                const emoji = document.createElement('div');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.position = 'fixed';
+                emoji.style.fontSize = '2rem';
+                emoji.style.pointerEvents = 'none';
+                emoji.style.zIndex = '1000';
+                emoji.style.left = Math.random() * window.innerWidth + 'px';
+                emoji.style.top = window.innerHeight + 'px';
+                emoji.style.animation = 'floatUp 3s ease-out forwards';
+                
+                document.body.appendChild(emoji);
+                
+                setTimeout(() => {
+                    emoji.remove();
+                }, 3000);
+            }
+        }
+
+        // Add CSS for floating animation
+        const style = document.createElement('style');
+        style.textContent += `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
